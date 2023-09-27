@@ -14,7 +14,7 @@
       @on-cancel="handelCancel"
     >
       <gc-formx ref="formx" :formState="formState">
-        <a-form-item
+        <!-- <a-form-item
           has-feedback
           label="标识"
           name="tag"
@@ -26,7 +26,7 @@
             placeholder="请输入标识号（例如：20230925161310215）"
             :disabled="cfg.submitting"
           />
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item
           has-feedback
           label="数据类型"
@@ -65,7 +65,7 @@ import { message } from 'ant-design-vue'
 
   interface FormState {
     dataTypeName: string;
-    tag: string | number;
+    // tag: string | number;
     isSaveInDb:string | boolean
   }
 
@@ -76,7 +76,7 @@ const cfg = reactive(
     api: gatherApi.uploadCsv,
     data: {
       dataTypeName: '',
-      tag: '',
+      //   tag: '',
       isSaveInDb: true
     }
   })
@@ -94,20 +94,22 @@ const handelSubmit = () => {
 
   const request = {
     file,
-    tag: formState.tag as string,
+    // tag: formState.tag as string,
     dataTypeName: formState.dataTypeName,
     isSaveInDb: 'true'
   }
 
-  cfg.loading = true
-  gatherApi.uploadCsv(request).then(() => {
-    emit('onSubmit', cfg.data)
-    message.success(successText)
-    hide(cfg)
-  }).catch(() => {
-    message.error(errorText)
-  }).finally(() => {
-    cfg.loading = false
+  formx.value.validateFields().then(() => {
+    cfg.loading = true
+    gatherApi.uploadCsv(request).then(() => {
+      emit('onSubmit', cfg.data)
+      message.success(successText)
+      hide(cfg)
+    }).catch(() => {
+      message.error(errorText)
+    }).finally(() => {
+      cfg.loading = false
+    })
   })
 }
 

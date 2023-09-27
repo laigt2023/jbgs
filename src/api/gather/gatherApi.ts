@@ -57,7 +57,7 @@ export default {
     return post({
       baseURL: '/my-api',
       headers: { 'Content-Type': 'multipart/form-data' },
-      url: `/gather/api/uploadCsv?tag=${formData.tag}&dataTypeName=${formData.dataTypeName}&isSaveInDb=${formData.isSaveInDb}`,
+      url: `/gather/api/uploadCsv?dataTypeName=${formData.dataTypeName}&isSaveInDb=${formData.isSaveInDb}`,
       data: fd
     })
   }
