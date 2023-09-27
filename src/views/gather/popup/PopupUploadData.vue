@@ -89,17 +89,8 @@ const emit = defineEmits<{(e: 'onSubmit', event: any): void;}>()
 const handelSubmit = () => {
   const successText = '上传采集数据成功'
   const errorText = '上传采集数据失败，请确认上传文件是否为CSV格式'
-  const fd = new FormData()
-
   const fileInput = document.querySelector('#fileInput') as any
-
   const file = fileInput.files[0]
-
-  console.error(file)
-  fd.append('file', file)
-  fd.append('tag', formState.tag as string)
-  fd.append('dataTypeName', formState.dataTypeName)
-  fd.append('isSaveInDb', formState.isSaveInDb as string)
 
   const request = {
     file,

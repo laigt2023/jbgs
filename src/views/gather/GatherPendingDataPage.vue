@@ -115,7 +115,7 @@
     >
     </gc-paginationx> -->
     <!-- <popup-gather-data-detail ref="popupDetail" @onSubmit="onRefresh" /> -->
-    <popup-upload-data ref="popupUploadDataRef"></popup-upload-data>
+    <popup-upload-data ref="popupUploadDataRef" @onSubmit="onSearch()"></popup-upload-data>
     <popup-common-detail ref="popupDetail"></popup-common-detail>
   </template>
 <script setup lang="ts" name="WorkOrderAllPage">
