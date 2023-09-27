@@ -1,0 +1,95 @@
+@main-font-size: 12px;
+
+
+@main-font-color: #111;
+@main-font-color-a: #eee;
+@main-dark-color: #003366;
+@main-primary-color: #3366cc;
+@main-error-color: #ff3333;
+@main-success-color: #009900;
+@main-info-color: #3399ff;
+@main-disable-color: #dce0e6;
+
+@main-title-color: #3399cc;
+@main-background-color: #cccccc;
+@main-border-color: #cccccc;
+@main-border-color-light: #dfdfdf;
+@main-td-stripe-color: #f0f0fa;
+@main-td-hover-color:#c9eaff;
+@main-counter-color: #006600;
+@main-active-color: #3399ff;
+@main-mark-color: #ffcc00;
+
+// 天蓝主页主题色 --------------------
+@skyblue-color: #092F5B;
+@skyblue-lighten-color: #0c4687;
+@skyblue-font-color-a:#eee;
+@skyblue-font-hover-color: #fff;
+@skyblue-zonebar-color: #eee;
+@skyblue-left-color: #1C4B82;
+@skyblue-left-hover-color:#4b7db7;
+@skyblue-left-sidebar-color:#fff;
+@skyblue-left-sub-opened-color:#092F5B;
+@skyblue-left-sub-opened-font-color:#fff;
+@skyblue-left-font-hover-color:#fff;
+@skyblue-submenu-hover-color: #fefefe;
+@skyblue-multinav-color: #4b7db7;
+// ------------------------------
+
+// 暗色主页主题色 --------------------
+@dark-color: #101010;
+@dark-lighten-color: #343434;
+@dark-font-color-a:#eee;
+@dark-font-hover-color: #fff;
+@dark-zonebar-color: #eee;
+@dark-left-color: #31343D;
+@dark-left-hover-color:#5a5a5a;
+@dark-left-sidebar-color:#eee;
+@dark-left-sub-opened-color:#1a1d26;
+@dark-left-sub-opened-font-color:#fff;
+@dark-left-font-hover-color:#fff;
+@dark-submenu-hover-color: #cce0f9;
+@dark-multinav-color: #535353;
+
+// ------------------------------
+
+
+/*bootstrap的样式*/
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.tips {
+  width: 100%;
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.buttons-icon {
+  color: #9e9e9e;
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+@phoneScreen: ~"screen and (orientation:portrait) and (max-width:1024px),screen and (orientation:landscape) and (min-width:800px) and (max-width:1024px)";
+@tabletScreen:~"screen and (orientation:landscape) and (min-width:1025px) and (max-width:1280px)";
+@desktopScreen:~"screen and (orientation:landscape) and (min-width:1281px)";
