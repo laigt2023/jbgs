@@ -4,7 +4,7 @@
  * @Date: 2023-04-24
 -->
 <template>
-    <div ref="countStatisticsChart" class="content">
+    <div ref="countStatisticsChart" class="content" :style="{height : props.height+'px',width : props.width+'px'}">
       <h1>统计数据</h1>
     </div>
   </template>
@@ -16,10 +16,28 @@ import gatherApi from '../../../api/gather/gatherApi'
 const countStatisticsChart = ref()
 let chartInstance
 
+const props = defineProps({
+  height: {
+    type: String || Number,
+    default: 300
+  },
+  width: {
+    type: String || Number,
+    default: 500
+  },
+  titilColor: {
+    type: String,
+    default: '#464646'
+  }
+})
+
 const option = {
   title: {
     text: '采集数据总数',
-    left: 'center'
+    left: 'center',
+    textStyle: {
+      color: props.titilColor
+    }
   },
   tooltip: {
     trigger: 'item'
@@ -99,8 +117,8 @@ onUnmounted(() => {
 })
 </script>
 <style lang="less" scoped>
-.content {
-  min-height: 300px;
-  min-width : 500px;
-}
+// .content {
+//   min-height: 300px;
+//   min-width : 500px;
+// }
 </style>

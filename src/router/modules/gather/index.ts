@@ -16,6 +16,13 @@ export default [
     meta: {},
     children: [
       {
+        name: 'gatherFullScreen',
+        path: '/gather/gatherFullScreen',
+        component: () => import('@views/gather/GatherFullScreen.vue'),
+        meta: {},
+        permission: ''
+      },
+      {
         name: 'errorDataList',
         path: '/gather/errorData',
         component: () => import('@views/gather/GatherDataPage.vue'),

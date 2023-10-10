@@ -13,6 +13,13 @@ export default [
     permission: '',
     children: [
       {
+        name: 'gatherFullScreen',
+        title: '数据流可视化',
+        icon: '',
+        routerName: 'gatherFullScreen',
+        permission: ''
+      },
+      {
         name: 'errorDataList',
         title: '异常数据告警',
         icon: '',

@@ -4,7 +4,7 @@
  * @Date: 2023-04-24
 -->
 <template>
-    <div ref="auditedStatisticsChart" class="content">
+    <div ref="auditedStatisticsChart" class="content" :style="{height : props.height+'px',width : props.width+'px'}">
       <h1>统计数据</h1>
     </div>
   </template>
@@ -13,13 +13,31 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import gatherApi from '../../../api/gather/gatherApi'
 
+const props = defineProps({
+  height: {
+    type: String || Number,
+    default: 300
+  },
+  width: {
+    type: String || Number,
+    default: 500
+  },
+  titilColor: {
+    type: String,
+    default: '#464646'
+  }
+})
+
 const auditedStatisticsChart = ref()
 let chartInstance
 
 const option = {
   title: {
     text: '异常数据比例',
-    left: 'center'
+    left: 'center',
+    textStyle: {
+      color: props.titilColor
+    }
   },
   tooltip: {
     trigger: 'item',
@@ -27,13 +45,17 @@ const option = {
   },
   legend: {
     orient: 'vertical',
-    left: 'left'
+    left: 'left',
+    top: '10%',
+    textStyle: {
+      color: props.titilColor
+    }
   },
   series: [
     {
       name: '异常数据比例',
       type: 'pie',
-      radius: '50%',
+      radius: '70%',
       data: [
         { value: 735, name: '异常数据', itemStyle: { color: '#ee6666' } },
         { value: 1048, name: '正常数据', itemStyle: { color: '#91cc75' } }
@@ -98,8 +120,8 @@ onUnmounted(() => {
 })
 </script>
 <style lang="less" scoped>
-.content {
-  min-height: 300px;
-  min-width : 500px;
-}
+// .content {
+//   min-height: 300px;
+//   min-width : 500px;
+// }
 </style>

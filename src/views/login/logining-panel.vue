@@ -45,7 +45,7 @@ const statusTextMap = {
   success: '认证成功',
   loading: '认证中',
   error: '认证失败',
-  govError: '市认证失败',
+  govError: '认证失败',
   timeout: '认证超时'
 }
 
