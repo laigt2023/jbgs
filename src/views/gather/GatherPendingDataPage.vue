@@ -35,21 +35,10 @@
                 </template>
                 样例下载
           </a-button>
+          <span class="task-text">当前状态： <i :class="currentTaskRuning?'task-running':'task-success'">{{ currentTaskRuning? '校验任务进行中，请稍后' : '检验已完成'}}</i></span>
       </template>
       <template #right>
-        <!-- <span class="item-label">数据状态</span>
-        <a-select
-          v-model:value="tableCfg.params.status"
-          class="item-input"
-          placeholder="状态"
-          :allowClear="true"
-          style="width: 120px"
-          @change="onSearch"
-        >
-          <a-select-option v-for="(d, key) in statusMap" :key="key" :value="key">{{
-            d
-          }}</a-select-option>
-        </a-select> -->
+
       </template>
       <template #search>
          <a-space direction="horizontal">
@@ -219,12 +208,44 @@ const handleAllVaild = (row) => {
 
   gatherApi.checkAndStore({ mode: 'csv' }).then(() => {
     onSearch()
-    message.success('【' + (row.tag || '全部') + ' 】校验操作请求已发送成功，请耐心等待校验完成,预计需要3-5分钟', 8)
+    message.success('【' + (row.tag || '全部') + ' 】校验操作请求已发送成功，请耐心等待校验任务执行完成', 5)
+    checkTaskIsComplete()
   })
 }
 
 const handleSimpleVaild = (row) => {
-  handleAllVaild(row)
+  gatherApi.simpleTaskStart({ mode: 'csv', sourceId: row.id }).then(() => {
+    onSearch()
+    message.success('【' + (row.dataTypeName) + ' 】校验操作请求已发送成功，请耐心等待校验任务执行完成', 5)
+
+    checkTaskIsComplete()
+  })
+}
+
+const currentTaskRuning = ref(false)
+
+const checkTaskIsComplete = () => {
+  gatherApi.currentTask().then((res) => {
+    if (res && res.length <= 0) {
+      currentTaskRuning.value = false
+      message.success('当前校验任务已执行完成', 5)
+    } else {
+      currentTaskRuning.value = true
+
+      // 开启定时任务
+      const taskId = setInterval(() => {
+        gatherApi.currentTask().then((res) => {
+          if (res && res.length <= 0) {
+            currentTaskRuning.value = false
+            clearInterval(taskId)
+            message.success('当前校验任务已执行完成', 5)
+          } else {
+            currentTaskRuning.value = true
+          }
+        })
+      }, 5 * 1000)
+    }
+  })
 }
 
 // 加载统计数据
@@ -322,3 +343,16 @@ onMounted(() => {
   onSearch()
 })
 </script>
+<style lang="less" scoped>
+.task-text{
+  margin-left: 10px;
+  font-size: 17px;
+  .task-running{
+    color: #1890ff;
+  }
+  .task-success{
+    color: #12ab5f;
+  }
+}
+
+</style>

@@ -10,6 +10,7 @@
       v-model:cancelText="cfg.cancelText"
       v-model:okText="cfg.okText"
       title="样子例下载"
+      :width="850"
       @on-ok="handelSubmit"
       @on-cancel="handelCancel"
     >
@@ -60,7 +61,15 @@ import {
 
 const csvArray = [
   { url: '/csv/GZW_MES_MODEL_DB示例1.csv' },
-  { url: '/csv/GZW_MRI_KPI_DB示例1.csv' }
+  { url: '/csv/GZW_MRI_KPI_DB示例1.csv' },
+  { url: '/csv/各项目规模信用等级企业数GZW_DDS_CRED_LVL_ENT_CNT_DB.csv' },
+  { url: '/csv/各信用等级供应商变化数GZW_DDS_VENDOR_EXCH_CNT_DB.csv' },
+  { url: '/csv/各信用等级中央企业变化数GZW_DDS_CRED_LVL_CE_EXCH_CNT_DB.csv' },
+  { url: '/csv/各信用等级中央企业数GZW_DDS_CRED_LVL_CE_CNT_DB.csv' },
+  { url: '/csv/各信用等级中央企业数变化趋势GZW_DDS_CRED_LVL_CE_EXCH_TREND_DB.csv' },
+  { url: '/csv/供应商信用E级企业GZW_DDS_VENDOR_ELVL_ENT_DB.csv' },
+  { url: '/csv/中央企业信用E级企业GZW_DDS_CENT_ENT_ELVL_DB.csv' },
+  { url: '/csv/重点行业评级情况GZW_DDS_IMPT_INDUS_RTG_DB.csv' }
 ]
 
 const getFileName = (url) => {

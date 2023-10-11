@@ -60,5 +60,20 @@ export default {
       url: `/gather/api/uploadCsv?dataTypeName=${formData.dataTypeName}&isSaveInDb=${formData.isSaveInDb}`,
       data: fd
     })
+  },
+  // 单个任务启动
+  simpleTaskStart(data) {
+    return get({
+      baseURL: '/my-api',
+      url: '/gather/api/checkOneAndStore',
+      data
+    })
+  },
+  // 获取当前进行中任务
+  currentTask() {
+    return get({
+      baseURL: '/my-api',
+      url: '/gather/api/currentTask'
+    })
   }
 }
