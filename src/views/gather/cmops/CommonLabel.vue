@@ -6,8 +6,8 @@
 <template>
   <div class="common-label">
     <img :src="getSrc('/img/label-left.png')" width="20" :height="props.height" alt="">
-    <component :is="props.icon" :style="{'font-size':props.iconSize + 'px'}" class="icon"/>
-    <span class="text" :style="{'font-size':props.fontSize + 'px'}">
+    <component :is="props.icon" :style="{'font-size':props.iconSize + 'px'}" class="label-icon"/>
+    <span class="label-text" :style="{'font-size':props.fontSize + 'px'}">
       {{ props.text }}
     </span>
   </div>
@@ -65,13 +65,13 @@ defineExpose({
   }
 }
 
-.icon{
+.label-icon{
   font-size: 60px;
   margin-left: 15px;
   display: inline-block;
   vertical-align: middle;
 }
-.text{
+.label-text{
   padding-left: 10px;
   font-size: 25px;
   padding-bottom: 5px;

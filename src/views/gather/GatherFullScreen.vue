@@ -15,9 +15,9 @@
 
       <common-label id="CSVHtmlRef" ref="CSVHtmlRef" icon-size="40" font-size='20' :style="getPositionExcel" icon="FileTextOutlined" :text="'CSV录入('+ (countInfo.success + countInfo.error) +')'"  @click="()=>{routerTo('pendingDataList')}"/>
 
-      <CountStatisticsChart :titil-color="'#fff'" height='180' width='200' class="count-chart" />
+      <CountStatisticsChart ref="countStatisticsChartRef" :titil-color="'#fff'" height='180' width='200' class="count-chart" />
 
-      <StatisticsChart :titil-color="'#fff'" height='300' width='340' class="statistics-chart" />
+      <StatisticsChart ref="statisticsChartRef" :titil-color="'#fff'" height='300' width='340' class="statistics-chart" />
 
       <common-label id="platformRef" height="140" icon-size="100" :style="{ position: 'absolute', left:'500px', top:'150px' }" icon="ClusterOutlined"  text='数据管理平台'/>
 
@@ -57,6 +57,9 @@ import CountStatisticsChart from './statistics/CountStatisticsChart.vue'
 import StatisticsChart from './statistics/StatisticsChart.vue'
 import router from '@/router'
 import gatherApi from '../../api/gather/gatherApi'
+
+const statisticsChartRef = ref<InstanceType<typeof StatisticsChart>>()
+const countStatisticsChartRef = ref<InstanceType<typeof CountStatisticsChart>>()
 
 const countInfo = ref({
   taskId: null,
@@ -100,6 +103,8 @@ const taskId = setInterval(() => {
 // 重复加载数据 30s/一次
 const loadDataTaskId = setInterval(() => {
   loadData()
+  statisticsChartRef.value.refreshChartOption()
+  countStatisticsChartRef.value.refreshChartOption()
 }, 30 * 1000)
 
 const title = ref('数据流可视化')

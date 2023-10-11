@@ -1,7 +1,7 @@
 <!--
- * @Description: 弹出框-个人中心-工单申请-创建
+ * @Description: 弹出框-上传采集数据
  * @Author: laigt
- * @Date: 2023-02-7
+ * @Date: 2023-10-11
 -->
 <template>
     <gc-modalx
@@ -29,13 +29,13 @@
         </a-form-item> -->
         <a-form-item
           has-feedback
-          label="数据类型"
+          label="数据名称"
           name="dataTypeName"
           :rules="[{required: true,validator: $vaild.queue([$vaild.maxLength(2, 50), $vaild.required])}]"
         >
           <a-input
             v-model:value="formState.dataTypeName"
-            placeholder="请输入数据类型 （例如：MES）"
+            placeholder="请输入数据名称 （例如：MES、MRI）"
             autocomplete="off"
             :disabled="cfg.submitting"
           />

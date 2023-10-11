@@ -115,6 +115,9 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', autoResetSize)
 })
+defineExpose({
+  refreshChartOption
+})
 </script>
 <style lang="less" scoped>
 // .content {

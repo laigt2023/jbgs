@@ -23,12 +23,18 @@
           </a-button>
           <a-popconfirm placement="topLeft" ok-text="Yes" cancel-text="No" @confirm="handleAllVaild">
             <template #title>
-              <p>是否启动当前所有带校验数据的【校验】操作</p>
+              <p>是否启动当前所有待校验数据的【校验】操作</p>
             </template>
             <gc-buttonx type-name="add">
               启动全部校验
             </gc-buttonx>
           </a-popconfirm>
+          <a-button type="primary" style="margin-right: 15px;" @click="handleCSVExampleDownload">
+                <template #icon>
+                  <CloudDownloadOutlined />
+                </template>
+                样例下载
+          </a-button>
       </template>
       <template #right>
         <!-- <span class="item-label">数据状态</span>
@@ -116,6 +122,7 @@
     </gc-paginationx> -->
     <!-- <popup-gather-data-detail ref="popupDetail" @onSubmit="onRefresh" /> -->
     <popup-upload-data ref="popupUploadDataRef" @onSubmit="onSearch()"></popup-upload-data>
+    <PopupCSVExampleDownload ref='popupCSVExampleDownload'></PopupCSVExampleDownload>
     <popup-common-detail ref="popupDetail"></popup-common-detail>
   </template>
 <script setup lang="ts" name="WorkOrderAllPage">
@@ -128,6 +135,7 @@ import PopupCommonDetail from '../../components/ifram/popup/PopupCommonDetail.vu
 import GcTablex from '../../components/gc/gc-tablex.vue'
 import { message } from 'ant-design-vue'
 import PopupUploadData from './popup/PopupUploadData.vue'
+import PopupCSVExampleDownload from './popup/PopupCSVExampleDownload.vue'
 // import StatisticsChart from './statistics/StatisticsChart.vue'
 // import CountStatisticsChart from './statistics/CountStatisticsChart.vue'
 
@@ -150,7 +158,7 @@ const tableCfg = reactive(
     columns: [
       { title: '序号', dataIndex: 'index', key: 'index' },
       { title: '标识', dataIndex: 'tag', key: 'tag' },
-      { title: '数据类型', dataIndex: 'dataTypeName', key: 'dataTypeName' },
+      { title: '数据名称', dataIndex: 'dataTypeName', key: 'dataTypeName' },
       { title: '存至数据库', dataIndex: 'isSaveInDb', key: 'isSaveInDb' },
       { title: '入库时间', dataIndex: 'recordTime', key: 'recordTime' },
       { title: '操作', key: 'action' }
@@ -161,11 +169,16 @@ const tableCfg = reactive(
   })
 )
 
-// // 新增
-// const popupDetail = ref<InstanceType<typeof PopupGatherDataDetail>>()
+// 样例下载
+const popupCSVExampleDownload = ref<InstanceType<typeof PopupCSVExampleDownload>>()
+
+const handleCSVExampleDownload = () => {
+  popupCSVExampleDownload.value.popup()
+}
 
 // 详情
 const popupDetail = ref<InstanceType<typeof PopupCommonDetail>>()
+
 // const detailFormat = [
 //   { label: 'ID', key: 'id', type: 'text' },
 //   { label: '数据状态', key: 'type', type: 'text' },
@@ -206,12 +219,12 @@ const handleAllVaild = (row) => {
 
   gatherApi.checkAndStore({ mode: 'csv' }).then(() => {
     onSearch()
-    message.success('【' + row.tag + ' 】校验启动操作已请求成功，请耐心等待校验完成', 5)
+    message.success('【' + (row.tag || '全部') + ' 】校验操作请求已发送成功，请耐心等待校验完成,预计需要3-5分钟', 8)
   })
 }
 
 const handleSimpleVaild = (row) => {
-  console.error(row)
+  handleAllVaild(row)
 }
 
 // 加载统计数据
