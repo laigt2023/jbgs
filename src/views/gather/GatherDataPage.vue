@@ -5,6 +5,10 @@
 -->
 <template>
     <gc-toolbar>
+      <div>
+        <StatisticsChart style="display: inline-block;"/>
+        <CountStatisticsChart style="display: inline-block;"/>
+      </div>
       <template #left>
           <!-- <a-popconfirm placement="right" ok-text="确认" cancel-text="取消" @confirm="handleTableExport('工单列表-全部工单',tableCfg,tableRef)">
             <template #title>
@@ -13,10 +17,21 @@
             <gc-buttonx type-name="export">
             </gc-buttonx>
           </a-popconfirm> -->
-          <StatisticsChart style="display: inline-block;"/>
-          <CountStatisticsChart style="display: inline-block;"/>
       </template>
       <template #right>
+        <span class="item-label">数据类型名称</span>
+        <a-select
+          v-model:value="tableCfg.params.dataTypeName"
+          class="item-input"
+          placeholder="请选择数据类型名称"
+          :allowClear="true"
+          style="width: 120px"
+          @change="onSearch"
+        >
+          <a-select-option v-for="(d, index) in dataTypeNameArray" :key="index" :value="d.dataTypeName">{{
+            d.dataTypeName
+          }}</a-select-option>
+        </a-select>
       </template>
       <template #search>
         <a-space direction="horizontal">
@@ -112,13 +127,14 @@ const tableCfg = reactive(
     api: gatherApi.errorList,
     url: '',
     params: {
-      tags: ''
+      dataTypeName: null
     },
     loading: false,
     columns: [
       { title: '序号', dataIndex: 'index', key: 'index' },
       { title: '告警状态', dataIndex: 'type', key: 'type' },
       { title: '表名', dataIndex: 'modelName', key: 'modelName' },
+      { title: '数据类型名称', dataIndex: 'dataTypeName', key: 'dataTypeName' },
       { title: '源数据', dataIndex: 'fieldAndData', key: 'fieldAndData' },
       { title: '异常提醒', dataIndex: 'errorMsg', key: 'errorMsg' },
       { title: '标识', dataIndex: 'tag', key: 'tag' },
@@ -130,6 +146,15 @@ const tableCfg = reactive(
     pageSize: 99999
   })
 )
+
+const dataTypeNameArray = ref([])
+
+const loadDataTypeName = () => {
+  gatherApi.dataTypeList({ mode: 'csv' }).then((res) => {
+    dataTypeNameArray.value = res
+  })
+}
+loadDataTypeName()
 
 // // 新增
 // const popupDetail = ref<InstanceType<typeof PopupGatherDataDetail>>()
@@ -247,7 +272,7 @@ const onSearch = () => {
 
 // 重置
 const handleReset = () => {
-  tableCfg.params.tags = null
+  tableCfg.params.dataTypeName = null
   tablexUtils.serach(tableCfg).then((res) => {
     tableCfg.data = res as any
   })

@@ -75,5 +75,12 @@ export default {
       baseURL: '/my-api',
       url: '/gather/api/currentTask'
     })
+  },
+  dataTypeList(data) {
+    return get({
+      baseURL: '/my-api',
+      url: '/gather/api/listDataTypeName',
+      data
+    })
   }
 }

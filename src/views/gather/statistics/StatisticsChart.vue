@@ -16,11 +16,11 @@ import gatherApi from '../../../api/gather/gatherApi'
 const props = defineProps({
   height: {
     type: String || Number,
-    default: 300
+    default: '300'
   },
   width: {
     type: String || Number,
-    default: 500
+    default: '500'
   },
   titilColor: {
     type: String,
