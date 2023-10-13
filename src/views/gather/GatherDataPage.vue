@@ -28,7 +28,7 @@
           style="width: 120px"
           @change="onSearch"
         >
-          <a-select-option v-for="(d, index) in dataTypeNameArray" :key="index" :value="d.dataTypeName">{{
+          <a-select-option v-for="(d, index) in dataTypeNameArray" :key="d.dataTypeName + '_' + index" :value="d.dataTypeName">{{
             d.dataTypeName
           }}</a-select-option>
         </a-select>
